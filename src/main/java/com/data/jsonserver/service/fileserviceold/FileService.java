@@ -1,4 +1,4 @@
-package com.data.jsonserver.service;
+package com.data.jsonserver.service.fileserviceold;
 
 import com.data.jsonserver.service.exception.*;
 import com.data.jsonserver.service.exception.Error;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,8 +32,47 @@ public class FileService implements FileServiceInterface{
                     getFolderServerName()
                 ).toAbsolutePath().normalize();
             Files.createDirectories(folder);
+            initializeFolders();
         } catch (IOException e) {
             throw new FileServerNotCreatedException("Não foi possível criar a pasta do servidor");
+        }
+    }
+
+    private void initializeFolders(){
+        JSONParser jsonParser = new JSONParser();
+        try (FileReader reader = new FileReader(getFolderServerName() + "/routes.json"))
+        {
+            Object obj = jsonParser.parse(reader);
+            JSONObject object = (JSONObject)obj;
+            JSONArray routes = (JSONArray)object.get("routes");
+            System.out.println(routes.toJSONString());
+            System.out.println(routes.size());
+            routes.forEach( i -> {
+                try {
+                    Path folder = Paths.get(
+                            getFolderServerName()+"/"+i
+                    ).toAbsolutePath().normalize();
+                    Files.createDirectories(folder);
+
+
+                    try (FileWriter writer = new FileWriter(getFolderServerName()+"/"+i +"/data.json")) {
+                        JSONObject obj1 = new JSONObject();
+                        obj1.put("teste", "teste");
+                        writer.write(obj1.toJSONString());
+                        writer.flush();
+                    }
+                    System.out.println("pasta criada");
+                    System.out.println(i);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 

@@ -1,6 +1,6 @@
 package com.data.jsonserver.resources;
 
-import com.data.jsonserver.service.FileServiceInterface;
+import com.data.jsonserver.service.fileserviceold.FileServiceInterface;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.http.ResponseEntity;
