@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/_routes")
 public class RoutesResources {
 
-    private FileServiceInterface<JSONObject> routerFileService;
+    private FileServiceInterface<JSONObject> routerManagerFile;
 
-    public RoutesResources(FileServiceInterface<JSONObject> routerFileService) {
-        this.routerFileService = routerFileService;
+    public RoutesResources(FileServiceInterface<JSONObject> routerManagerFile) {
+        this.routerManagerFile = routerManagerFile;
     }
 
     @GetMapping
     public ResponseEntity<JSONObject> getRoutes(){
-        return ResponseEntity.ok(routerFileService.readFile());
+        return ResponseEntity.ok(routerManagerFile.readFile());
     }
 
     @PostMapping
     public ResponseEntity<JSONObject> createRoutes(@RequestBody JSONObject object){
-        routerFileService.writeFile(object);
+        routerManagerFile.writeFile(object);
         return ResponseEntity.ok(object);
     }
 }

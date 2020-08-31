@@ -14,12 +14,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 @Service
-public class RouterFileService implements FileServiceInterface<JSONObject> {
+public class RouterManagerFile implements FileServiceInterface<JSONObject> {
 
     private FolderInterface routerFolder;
     private FileInterface routerFile;
 
-    public RouterFileService(FolderInterface routerFolder, FileInterface routerFile) {
+    public RouterManagerFile(FolderInterface routerFolder, FileInterface routerFile) {
         this.routerFolder = routerFolder;
         this.routerFile = routerFile;
     }

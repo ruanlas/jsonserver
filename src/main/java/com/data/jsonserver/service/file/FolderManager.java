@@ -32,7 +32,7 @@ public class FolderManager implements FolderManagerInterface {
             Files.createDirectories(folder);
             childFolders.forEach(f -> f.create());
         } catch (IOException e) {
-            throw new CreateFolderRuntimeException("Não foi possível criar a pasta de raiz");
+            throw new CreateFolderRuntimeException("Não foi possível criar a pasta raiz");
         }
     }
 
