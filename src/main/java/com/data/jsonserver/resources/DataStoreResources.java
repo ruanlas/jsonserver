@@ -29,7 +29,7 @@ public class DataStoreResources {
 
     @PostMapping("/{path}")
     public ResponseEntity<JSONObject> postData(@PathVariable String path, @RequestBody JSONObject object){
-        routerValidate.validPath(path, "{id}");
+        routerValidate.validPath(path);
         JSONObject save = storeService.save(path, object);
         return ResponseEntity.ok(save);
     }
