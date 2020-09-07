@@ -7,5 +7,7 @@ public interface StoreServiceInterface {
 
     JSONArray getDataList(String path);
     JSONObject getData(String path, String id);
+    void remove(String path, String id);
+    JSONObject edit(String path, String id, JSONObject jsonObject);
     JSONObject save(String path, JSONObject jsonObject);
 }

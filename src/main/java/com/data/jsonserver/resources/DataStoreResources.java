@@ -40,4 +40,19 @@ public class DataStoreResources {
         JSONObject data = storeService.getData(path, id);
         return ResponseEntity.ok(data);
     }
+
+    @DeleteMapping("/{path}/{id}")
+    public ResponseEntity<Void> removeData(@PathVariable String path, @PathVariable String id){
+        routerValidate.validPath(path, "{id}");
+        storeService.remove(path, id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{path}/{id}")
+    public ResponseEntity<JSONObject> putData(
+            @PathVariable String path, @PathVariable String id, @RequestBody JSONObject object){
+        routerValidate.validPath(path, "{id}");
+        JSONObject data = storeService.edit(path, id, object);
+        return ResponseEntity.ok(data);
+    }
 }

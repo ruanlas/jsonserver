@@ -45,9 +45,35 @@ public class StoreService implements StoreServiceInterface{
     }
 
     @Override
+    public void remove(String path, String id) {
+        JSONObject data = getData(path, id);
+        JSONArray dataList = getDataList(path);
+
+        dataStoreManagerFile
+                .getFolderURI()
+                .setPath(path);
+        dataList.remove(data);
+        dataStoreManagerFile.writeFile(dataList);
+    }
+
+    @Override
+    public JSONObject edit(String path, String id, JSONObject jsonObject) {
+        JSONObject data = this.getData(path, id);
+        Object dataId = data.get("id");
+        jsonObject.put("id", dataId.toString());
+
+        this.remove(path, id);
+        return this.persist(path, jsonObject);
+    }
+
+    @Override
     public JSONObject save(String path, JSONObject jsonObject) {
         String id = UUID.randomUUID().toString();
         jsonObject.put("id", id);
+        return this.persist(path, jsonObject);
+    }
+
+    private JSONObject persist(String path, JSONObject jsonObject){
         JSONArray dataList = getDataList(path);
 
         dataStoreManagerFile
