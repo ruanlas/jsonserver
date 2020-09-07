@@ -1,6 +1,6 @@
 package com.data.jsonserver.resources;
 
-import com.data.jsonserver.service.file.FileServiceInterface;
+import com.data.jsonserver.service.router.RouterServiceInterface;
 import org.json.simple.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/_routes")
 public class RoutesResources {
 
-    private FileServiceInterface<JSONObject> routerManagerFile;
+    private RouterServiceInterface<JSONObject> routerService;
 
-    public RoutesResources(FileServiceInterface<JSONObject> routerManagerFile) {
-        this.routerManagerFile = routerManagerFile;
+    public RoutesResources(RouterServiceInterface<JSONObject> routerService) {
+        this.routerService = routerService;
     }
 
     @GetMapping
     public ResponseEntity<JSONObject> getRoutes(){
-        return ResponseEntity.ok(routerManagerFile.readFile());
+        return ResponseEntity.ok(routerService.getRoutes());
     }
 
     @PostMapping
     public ResponseEntity<JSONObject> createRoutes(@RequestBody JSONObject object){
-        routerManagerFile.writeFile(object);
-        return ResponseEntity.ok(object);
+        JSONObject routes = routerService.createRoutes(object);
+        return ResponseEntity.ok(routes);
     }
 }

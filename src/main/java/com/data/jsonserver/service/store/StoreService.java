@@ -22,6 +22,9 @@ public class StoreService implements StoreServiceInterface{
                 .getFolderURI()
                 .setPath(path);
         JSONArray jsonArray = dataStoreManagerFile.readFile();
+        if (jsonArray == null){
+            jsonArray = new JSONArray();
+        }
         return jsonArray;
     }
 
@@ -44,6 +47,7 @@ public class StoreService implements StoreServiceInterface{
         String id = UUID.randomUUID().toString();
         jsonObject.put("id", id);
         JSONArray dataList = getDataList(path);
+
         dataStoreManagerFile
                 .getFolderURI()
                 .setPath(path);
