@@ -1,8 +1,10 @@
 package com.data.jsonserver.service.file.datastore;
 
+import com.data.jsonserver.service.exception.Error;
 import com.data.jsonserver.service.file.FileInterface;
 import com.data.jsonserver.service.file.SubFolderInterface;
 import com.data.jsonserver.service.file.exception.FileNotFoundServerException;
+import com.data.jsonserver.service.file.exception.ParseError;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -37,14 +39,11 @@ public class DataStoreManagerFile implements DataStoreManagerFileInterface {
             JSONArray jsonArray = (JSONArray) obj;
             return jsonArray;
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
             throw new FileNotFoundServerException();
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new Error(e.getMessage());
         } catch (ParseException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new ParseError(e.getMessage());
         }
     }
 
@@ -54,7 +53,7 @@ public class DataStoreManagerFile implements DataStoreManagerFileInterface {
             writer.write(file.toJSONString());
             writer.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new Error(e.getMessage());
         }
     }
 }
