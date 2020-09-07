@@ -1,8 +1,11 @@
 package com.data.jsonserver.service.file.router;
 
+import com.data.jsonserver.service.exception.Error;
 import com.data.jsonserver.service.file.FileInterface;
 import com.data.jsonserver.service.file.FileServiceInterface;
 import com.data.jsonserver.service.file.FolderInterface;
+import com.data.jsonserver.service.file.exception.FileNotFoundServerException;
+import com.data.jsonserver.service.file.exception.ParseError;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -25,20 +28,19 @@ public class RouterManagerFile implements FileServiceInterface<JSONObject> {
     }
 
     @Override
-    public JSONObject readFile() {
+    public JSONObject readFile() throws FileNotFoundServerException {
         JSONParser jsonParser = new JSONParser();
         try (FileReader reader = new FileReader(routerFolder.getPath() + "/" + routerFile.fileName())){
             Object obj = jsonParser.parse(reader);
             JSONObject object = (JSONObject)obj;
             return object;
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new FileNotFoundServerException();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new Error(e.getMessage());
         } catch (ParseException e) {
-            e.printStackTrace();
+            throw new ParseError(e.getMessage());
         }
-        return null;
     }
 
     @Override
@@ -47,7 +49,7 @@ public class RouterManagerFile implements FileServiceInterface<JSONObject> {
             writer.write(file.toJSONString());
             writer.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new Error(e.getMessage());
         }
     }
 }

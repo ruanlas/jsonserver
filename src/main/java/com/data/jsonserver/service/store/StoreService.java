@@ -1,6 +1,8 @@
 package com.data.jsonserver.service.store;
 
 import com.data.jsonserver.service.file.datastore.DataStoreManagerFileInterface;
+import com.data.jsonserver.service.file.exception.FileNotFoundServerException;
+import com.data.jsonserver.service.store.exception.DataNotFoundRuntimeException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
@@ -21,11 +23,11 @@ public class StoreService implements StoreServiceInterface{
         dataStoreManagerFile
                 .getFolderURI()
                 .setPath(path);
-        JSONArray jsonArray = dataStoreManagerFile.readFile();
-        if (jsonArray == null){
-            jsonArray = new JSONArray();
+        try {
+            return dataStoreManagerFile.readFile();
+        } catch (FileNotFoundServerException e) {
+            return new JSONArray();
         }
-        return jsonArray;
     }
 
     @Override
@@ -38,8 +40,7 @@ public class StoreService implements StoreServiceInterface{
                 return json;
             }
         }
-//        lançar uma exception
-        return null;
+        throw new DataNotFoundRuntimeException();
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.data.jsonserver.service.router;
 
 import com.data.jsonserver.service.file.FileServiceInterface;
 import com.data.jsonserver.service.file.SubFolderInterface;
+import com.data.jsonserver.service.file.exception.FileNotFoundServerException;
+import com.data.jsonserver.service.router.exception.RouterNotFoundRuntimeException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -24,7 +26,11 @@ public class RouterService implements RouterServiceInterface<JSONObject> {
 
     @Override
     public JSONObject getRoutes() {
-        return routerManagerFile.readFile();
+        try {
+            return routerManagerFile.readFile();
+        } catch (FileNotFoundServerException e) {
+            throw new RouterNotFoundRuntimeException();
+        }
     }
 
     @Override
@@ -33,7 +39,6 @@ public class RouterService implements RouterServiceInterface<JSONObject> {
 
         JSONObject parse = this.handleParse(jsonObject);
         JSONArray routes = (JSONArray) parse.get("routes");
-        System.out.println(routes);
         routes.forEach(route -> {
             dataStoreURIFolder.addSubFolder(route.toString());
         });

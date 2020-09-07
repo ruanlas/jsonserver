@@ -2,6 +2,7 @@ package com.data.jsonserver.service.file.datastore;
 
 import com.data.jsonserver.service.file.FileInterface;
 import com.data.jsonserver.service.file.SubFolderInterface;
+import com.data.jsonserver.service.file.exception.FileNotFoundServerException;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -29,7 +30,7 @@ public class DataStoreManagerFile implements DataStoreManagerFileInterface {
     }
 
     @Override
-    public JSONArray readFile() {
+    public JSONArray readFile() throws FileNotFoundServerException {
         JSONParser jsonParser = new JSONParser();
         try (FileReader reader = new FileReader(dataStoreURIFolder.getPath() + "/" + dataStoredFile.fileName())){
             Object obj = jsonParser.parse(reader);
@@ -37,12 +38,14 @@ public class DataStoreManagerFile implements DataStoreManagerFileInterface {
             return jsonArray;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            throw new FileNotFoundServerException();
         } catch (IOException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         } catch (ParseException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     @Override
