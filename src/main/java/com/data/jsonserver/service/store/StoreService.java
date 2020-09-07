@@ -40,7 +40,8 @@ public class StoreService implements StoreServiceInterface{
                 return json;
             }
         }
-        throw new DataNotFoundRuntimeException();
+        throw new DataNotFoundRuntimeException(
+                "Não foi encontrado a informação com o id=[ {id} ]".replace("{id}", id));
     }
 
     @Override

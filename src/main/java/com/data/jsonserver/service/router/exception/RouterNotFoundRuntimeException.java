@@ -1,8 +1,13 @@
 package com.data.jsonserver.service.router.exception;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
+@Getter
 public class RouterNotFoundRuntimeException extends RuntimeException{
+    private HttpStatus httpStatus;
+    public RouterNotFoundRuntimeException(String message, HttpStatus httpStatus) {
+        super(message);
+        this.httpStatus = httpStatus;
+    }
 }

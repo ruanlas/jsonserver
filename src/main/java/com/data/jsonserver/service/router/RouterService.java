@@ -8,6 +8,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,7 +30,8 @@ public class RouterService implements RouterServiceInterface<JSONObject> {
         try {
             return routerManagerFile.readFile();
         } catch (FileNotFoundServerException e) {
-            throw new RouterNotFoundRuntimeException();
+            throw new RouterNotFoundRuntimeException(
+                    "Não foi possível encontrar o arquivo de rotas.", HttpStatus.NOT_FOUND);
         }
     }
 

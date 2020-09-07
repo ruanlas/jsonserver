@@ -27,17 +27,17 @@ public class DataStoreResources {
         return ResponseEntity.ok(dataList);
     }
 
-    @GetMapping("/{path}/{id}")
-    public ResponseEntity<JSONObject> getData(@PathVariable String path, @PathVariable String id){
-        routerValidate.validPath(path, "{id}");
-        JSONObject data = storeService.getData(path, id);
-        return ResponseEntity.ok(data);
-    }
-
     @PostMapping("/{path}")
     public ResponseEntity<JSONObject> postData(@PathVariable String path, @RequestBody JSONObject object){
         routerValidate.validPath(path, "{id}");
         JSONObject save = storeService.save(path, object);
         return ResponseEntity.ok(save);
+    }
+
+    @GetMapping("/{path}/{id}")
+    public ResponseEntity<JSONObject> getData(@PathVariable String path, @PathVariable String id){
+        routerValidate.validPath(path, "{id}");
+        JSONObject data = storeService.getData(path, id);
+        return ResponseEntity.ok(data);
     }
 }
