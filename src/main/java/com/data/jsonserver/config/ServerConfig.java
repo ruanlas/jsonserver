@@ -1,20 +1,20 @@
 package com.data.jsonserver.config;
 
-import com.data.jsonserver.service.FileServiceInterface;
+import com.data.jsonserver.service.file.FolderManagerInterface;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ServerConfig {
 
-    private FileServiceInterface fileService;
+    private FolderManagerInterface folderManager;
 
-    public ServerConfig(FileServiceInterface fileService) {
-        this.fileService = fileService;
+    public ServerConfig(FolderManagerInterface folderManager) {
+        this.folderManager = folderManager;
     }
 
     @Bean
     public void createFolder(){
-        fileService.createServerFolder();
+        folderManager.createRoot();
     }
 }
