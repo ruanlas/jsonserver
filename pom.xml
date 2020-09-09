@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.data</groupId>
-	<artifactId>jsonserver</artifactId>
+	<artifactId>mockapiserver</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>jsonserver</name>
+	<name>mockapiserver</name>
 	<description>Servidor rápido para testes de endpoint</description>
 
 	<properties>
