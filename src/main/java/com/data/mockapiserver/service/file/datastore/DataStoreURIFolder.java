@@ -3,6 +3,7 @@ package com.data.mockapiserver.service.file.datastore;
 import com.data.mockapiserver.service.file.FolderInterface;
 import com.data.mockapiserver.service.file.SubFolderInterface;
 import com.data.mockapiserver.service.file.exception.CreateFolderRuntimeException;
+import com.data.mockapiserver.service.file.exception.PathNotDefinedRuntimeException;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -21,21 +22,6 @@ public class DataStoreURIFolder implements SubFolderInterface {
         this.subFolderPath = null;
     }
 
-//    @Override
-//    public FolderInterface getRoot() {
-//        return dataStoreFolder;
-//    }
-
-//    @Override
-//    private String getSubFolder(String path) {
-//        return dataStoreFolder.getPath() + "/" + path;
-//    }
-
-//    @Override
-//    public boolean existsSubFolder(String subFolderPath) {
-//        return false;
-//    }
-
     @Override
     public void setPath(String subFolderPath) {
         this.subFolderPath = subFolderPath;
@@ -44,7 +30,7 @@ public class DataStoreURIFolder implements SubFolderInterface {
     @Override
     public String getPath() {
         if (subFolderPath == null){
-//      retornar uma exception que não foi setado o path da subfolder
+            throw new PathNotDefinedRuntimeException("A propriedade [subFolderPath] nao foi definida pelo metodo [setPath()]");
         }
         return dataStoreFolder.getPath() + "/" + subFolderPath;
     }
