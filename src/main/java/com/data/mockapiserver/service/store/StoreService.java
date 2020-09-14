@@ -21,8 +21,7 @@ public class StoreService implements StoreServiceInterface{
     @Override
     public JSONArray getDataList(String path) {
         dataStoreManagerFile
-                .getFolderURI()
-                .setPath(path);
+                .setPathURI(path);
         try {
             return dataStoreManagerFile.readFile();
         } catch (FileNotFoundServerException e) {
@@ -50,8 +49,7 @@ public class StoreService implements StoreServiceInterface{
         JSONArray dataList = getDataList(path);
 
         dataStoreManagerFile
-                .getFolderURI()
-                .setPath(path);
+                .setPathURI(path);
         dataList.remove(data);
         dataStoreManagerFile.writeFile(dataList);
     }
@@ -77,8 +75,7 @@ public class StoreService implements StoreServiceInterface{
         JSONArray dataList = getDataList(path);
 
         dataStoreManagerFile
-                .getFolderURI()
-                .setPath(path);
+                .setPathURI(path);
         dataList.add(jsonObject);
         dataStoreManagerFile.writeFile(dataList);
         return jsonObject;

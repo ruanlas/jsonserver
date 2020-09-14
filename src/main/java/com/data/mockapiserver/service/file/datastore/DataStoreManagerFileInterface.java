@@ -1,9 +1,8 @@
 package com.data.mockapiserver.service.file.datastore;
 
-import com.data.mockapiserver.service.file.FileServiceInterface;
-import com.data.mockapiserver.service.file.SubFolderInterface;
+import com.data.mockapiserver.service.file.ManagerFileInterface;
 import org.json.simple.JSONArray;
 
-public interface DataStoreManagerFileInterface extends FileServiceInterface<JSONArray> {
-    SubFolderInterface getFolderURI();
+public interface DataStoreManagerFileInterface extends ManagerFileInterface<JSONArray> {
+    void setPathURI(String path);
 }

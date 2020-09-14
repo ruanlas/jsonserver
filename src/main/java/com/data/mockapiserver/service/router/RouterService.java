@@ -1,6 +1,6 @@
 package com.data.mockapiserver.service.router;
 
-import com.data.mockapiserver.service.file.FileServiceInterface;
+import com.data.mockapiserver.service.file.ManagerFileInterface;
 import com.data.mockapiserver.service.file.SubFolderInterface;
 import com.data.mockapiserver.service.file.exception.FileNotFoundServerException;
 import com.data.mockapiserver.service.router.exception.RouterNotFoundRuntimeException;
@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class RouterService implements RouterServiceInterface<JSONObject> {
 
-    private FileServiceInterface<JSONObject> routerManagerFile;
+    private ManagerFileInterface<JSONObject> routerManagerFile;
     private SubFolderInterface dataStoreURIFolder;
 
     public RouterService(
-            FileServiceInterface<JSONObject> routerManagerFile,
+            ManagerFileInterface<JSONObject> routerManagerFile,
             SubFolderInterface dataStoreURIFolder
     ) {
         this.routerManagerFile = routerManagerFile;

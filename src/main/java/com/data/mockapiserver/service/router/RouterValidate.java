@@ -1,6 +1,6 @@
 package com.data.mockapiserver.service.router;
 
-import com.data.mockapiserver.service.file.FileServiceInterface;
+import com.data.mockapiserver.service.file.ManagerFileInterface;
 import com.data.mockapiserver.service.file.exception.FileNotFoundServerException;
 import com.data.mockapiserver.service.router.exception.PathNotFoundRuntimeException;
 import com.data.mockapiserver.service.router.exception.RouterNotFoundRuntimeException;
@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class RouterValidate implements RouterValidateInterface{
 
-    private FileServiceInterface<JSONObject> routerManagerFile;
+    private ManagerFileInterface<JSONObject> routerManagerFile;
 
-    public RouterValidate(FileServiceInterface<JSONObject> routerManagerFile) {
+    public RouterValidate(ManagerFileInterface<JSONObject> routerManagerFile) {
         this.routerManagerFile = routerManagerFile;
     }
 

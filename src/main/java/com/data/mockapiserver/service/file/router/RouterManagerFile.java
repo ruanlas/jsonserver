@@ -2,7 +2,7 @@ package com.data.mockapiserver.service.file.router;
 
 import com.data.mockapiserver.service.exception.Error;
 import com.data.mockapiserver.service.file.FileInterface;
-import com.data.mockapiserver.service.file.FileServiceInterface;
+import com.data.mockapiserver.service.file.ManagerFileInterface;
 import com.data.mockapiserver.service.file.FolderInterface;
 import com.data.mockapiserver.service.file.exception.FileNotFoundServerException;
 import com.data.mockapiserver.service.file.exception.ParseError;
@@ -17,7 +17,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 @Service
-public class RouterManagerFile implements FileServiceInterface<JSONObject> {
+public class RouterManagerFile implements ManagerFileInterface<JSONObject> {
 
     private FolderInterface routerFolder;
     private FileInterface routerFile;

@@ -27,8 +27,9 @@ public class DataStoreManagerFile implements DataStoreManagerFileInterface {
     }
 
     @Override
-    public SubFolderInterface getFolderURI() {
-        return dataStoreURIFolder;
+    public void setPathURI(String path) {
+        this.dataStoreURIFolder
+                .setPath(path);
     }
 
     @Override
